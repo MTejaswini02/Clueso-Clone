@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>Clueso</h2>
+
+    <div class="menu">
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="submit_feedback.html">📝 Submit Feedback</a>
+        <a href="view_feedback.html">📂 View Feedback</a>
+        <a href="insights.html">📊 Insights</a>
+    </div>
+
+    <div class="logout">
+        <button onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div class="container">
+<h2>Your Feedback</h2>
+
+<div id="list"></div>
+
+<button class="back" onclick="location.href='dashboard.html'">⬅ Back to Dashboard</button>
+</div>
+
+<script>
+function logout(){
+ localStorage.clear();
+ window.location.href="login.html";
+}
+
+async function loadFeedback(){
+ const token = localStorage.getItem("token");
+
+ const res = await fetch("http://127.0.0.1:8000/feedback/", {
+  headers:{ "Authorization":"Bearer " + token }
+ });
+
+ const data = await res.json();
+ const list = document.getElementById("list");
+ list.innerHTML="";
+
+ if(data.length === 0){
+    list.innerHTML="<p>No feedback yet.</p>";
+    return;
+ }
+
+ data.forEach(f=>{
+    list.innerHTML += `<div class="insight-box">${f.message}</div>`;
+ });
+}
+loadFeedback();
+</script>
+
+</body>
+</html>

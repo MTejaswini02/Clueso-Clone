@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+    <div class="brand">
+    <img src="clueso_logo.jfif" class="brand-logo">
+    <span class="brand-text">Clueso</span>
+</div>
+
+
+    <div class="menu">
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="submit_feedback.html">📝 Submit Feedback</a>
+        <a href="view_feedback.html">📂 View Feedback</a>
+        <a href="insights.html">📊 Insights</a>
+    </div>
+
+    <div class="logout">
+        <button onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div class="main">
+    
+    <h1 class="title">
+    Welcome Back 👋
+    </h1>
+    <p style="opacity:0.8">Your personal feedback assistant</p>
+
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Submit Feedback</h3>
+            <p>Share your thoughts</p>
+            <button onclick="location.href='submit_feedback.html'">Go</button>
+        </div>
+
+        <div class="card">
+            <h3>View Feedback</h3>
+            <p>Check previous feedback</p>
+            <button onclick="location.href='view_feedback.html'">Go</button>
+        </div>
+
+        <div class="card">
+            <h3>Insights</h3>
+            <p>Smart analytics</p>
+            <button onclick="location.href='insights.html'">Go</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function logout(){
+    localStorage.clear();
+    window.location.href="login.html";
+}
+</script>
+
+</body>
+</html>

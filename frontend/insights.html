@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>Clueso</h2>
+
+    <div class="menu">
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="submit_feedback.html">📝 Submit Feedback</a>
+        <a href="view_feedback.html">📂 View Feedback</a>
+        <a href="insights.html">📊 Insights</a>
+    </div>
+
+    <div class="logout">
+        <button onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div class="container">
+<h2>Insights</h2>
+
+<div class="insight-box">
+<p><strong>Total Feedback:</strong> <span id="total">0</span></p>
+<p><strong>Latest Feedback:</strong> <span id="latest">-</span></p>
+<p><strong>Average Feedback Length:</strong> <span id="avg">0</span> Characters</p>
+</div>
+
+<button class="back" onclick="location.href='dashboard.html'">⬅ Back to Dashboard</button>
+</div>
+
+<script>
+function logout(){
+ localStorage.clear();
+ window.location.href="login.html";
+}
+
+async function loadInsights(){
+ const token = localStorage.getItem("token");
+
+ const res = await fetch("http://127.0.0.1:8000/insights/", {
+  headers:{ "Authorization":"Bearer " + token }
+ });
+
+ const data = await res.json();
+
+ document.getElementById("total").innerText = data.total_feedback;
+ document.getElementById("latest").innerText = data.latest_feedback || "No feedback";
+ document.getElementById("avg").innerText = data.message_length_average ?? 0;
+}
+loadInsights();
+</script>
+
+</body>
+</html>
